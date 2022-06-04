@@ -47,11 +47,11 @@ class ChatService {
     }
 
     fun getListChats(): List<Chat> {
-        return _chatsMap.map { it.key }
+        return _chatsMap.asSequence().map { it.key }.toList()
     }
 
     fun getListMessagesFromChat(chat: Chat): List<DirectMessage> {
         val listMessages = _chatsMap.getOrDefault(chat, listOf())
-        return listMessages.map { it.copy(isRead = true) }
+        return listMessages.asSequence().map { it.copy(isRead = true) }.toList()
     }
 }

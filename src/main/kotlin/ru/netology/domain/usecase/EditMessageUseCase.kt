@@ -15,7 +15,7 @@ class EditMessageUseCase {
         val chat = useCase.getChatById(message.chatId, chatsMap)
         val listCurrentMessage = chatsMap.getOrDefault(chat, listOf())
         val updateMessage = getMessageById.getMessageById(message.id, chatsMap).copy(text = text)
-        val newListMessage = listCurrentMessage.filter { it.id != message.id } + updateMessage
+        val newListMessage = listCurrentMessage.asSequence().filter { it.id != message.id }.toList() + updateMessage
         return mapOf(chat to newListMessage)
     }
 }
